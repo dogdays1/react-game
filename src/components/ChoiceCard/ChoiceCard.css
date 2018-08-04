@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box
+}
+
+.pic {
+  height: 200px;
+  width: 180px;
+  margin: 10px;
+  float: left;
+}
+/* .img-container {
+  height: 200px;
+  width: 180px;
+  float: left;
+}  */
