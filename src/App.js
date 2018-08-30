@@ -11,21 +11,35 @@ import "./App.css";
 class App extends Component {
   state = {
     choices,
-    picked: "true",
+    // picked: "true",
     count: 0
   };
 
   changeState = id => {
     console.log(this.state.picked)
     console.log(this.state.count)
-    if (this.state.picked === "false") {
-      console.log("game over")
-      this.gameOver();
-    } else
-    console.log("change state")
-      this.setState({ picked: "false" });
-    this.handleIncrement()
-  };
+    // for (let i=0; i<this.state.choices; i++){
+      let newArray = this.state.choices.map((choice) => {
+        if (id===choice.id){
+          if (choice.picked){
+            this.gameOver()
+            return choice
+          }else{
+            choice.picked=true
+            this.handleIncrement()
+            return choice
+          }
+        }
+        return choice
+      })
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+      this.setState({choices:newArray})
+
+    }
+
 
 
   handleIncrement = () => {
@@ -33,6 +47,12 @@ class App extends Component {
     console.log(this.state.count);
   };
   gameOver = () => {
+    let newArray = this.state.choices.map((choice) => {
+      choice.picked=false
+      return choice
+    })
+    this.setState({count:0, choices:newArray})
+
     alert("You've already chosen that Senator...Game Over!")
   };
 
